@@ -92,7 +92,8 @@ public class BattleshipModel implements IBattleshipModel {
 
   /**
    * Checks if a ship can be placed at the given position.
-   * Validates grid boundaries and checks for overlapping ships.
+   * Validates grid boundaries and checks that the ship doesn't overlap
+   * or touch any existing ship.
    *
    * @param row the starting row position
    * @param col the starting column position
@@ -110,15 +111,17 @@ public class BattleshipModel implements IBattleshipModel {
       if (row + ship.getSize() > GRID_SIZE) return false;
     }
 
-    // then check for overlapping with existing ships
-    for (int i = 0; i < ship.getSize(); i++) {
-      // calculate position of each ship segment
-      int checkRow = horizontal ? row : row + i;
-      int checkCol = horizontal ? col + i : col;
+    // then check the ship's cells and every cell around them,
+    // so ships never overlap or touch (not even diagonally)
+    int lastRow = horizontal ? row : row + ship.getSize() - 1;
+    int lastCol = horizontal ? col + ship.getSize() - 1 : col;
 
-      // if any cell is already occupied, we can't place here
-      if (shipGrid[checkRow][checkCol] != null) {
-        return false;
+    for (int r = Math.max(0, row - 1); r <= Math.min(GRID_SIZE - 1, lastRow + 1); r++) {
+      for (int c = Math.max(0, col - 1); c <= Math.min(GRID_SIZE - 1, lastCol + 1); c++) {
+        // if any cell is already occupied, we can't place here
+        if (shipGrid[r][c] != null) {
+          return false;
+        }
       }
     }
 

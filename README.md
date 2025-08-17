@@ -57,7 +57,7 @@ java -cp bin SwingApp
 
 ## Playing
 
-Ships: Aircraft Carrier (5), Battleship (4), Submarine (3), Destroyer (3), Patrol Boat (2).
+Ships: Aircraft Carrier (5), Battleship (4), Submarine (3), Destroyer (3), Patrol Boat (2). They're placed randomly and never touch each other, not even diagonally.
 
 In the console, type a cell like `A5` or `j9`. Rows are A–J, columns are 0–9. `H` marks a hit, `M` a miss. `K5`, `A10`, and a cell you already shot are rejected.
 
